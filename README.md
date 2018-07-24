@@ -3,7 +3,7 @@ Java program for facilitating communication between USB controller and arduino. 
 
 ## Installation
 ### Windows
-Download and run .exe installer at from https://github.com/NicholasBerryman/ControllerLibDashboard/raw/master/dist/bundles/ArduinoControllerDashboard-1.0.exe
+Download and run the .exe installer from https://github.com/NicholasBerryman/ControllerLibDashboard/raw/master/dist/bundles/ArduinoControllerDashboard-1.0.exe
 ### Other Operating Systems
 A .jar file is provided at https://github.com/NicholasBerryman/ControllerLibDashboard/raw/master/dist/ArduinoControllerDashboard.jar
 This file should be able to run on any machine with a recent java installation
