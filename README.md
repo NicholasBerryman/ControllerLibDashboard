@@ -18,7 +18,7 @@ Once a COM port has been selected and confirmed, the main dashboard window will 
     * \*Note* Intermediate colours are used for non-integral values  
     
 Below the controller tab is the messages box, which displays messages and logs sent from the arduino.  
-Under the messages box is another text box with a send button next to it.  
+Under the messages box is another text box with a send button next to it. These  controls are used to send messages to the Arduino.
 
 ### Arduino
 Before attempting to use the library, the Dashboard::begin() function must be called.  
