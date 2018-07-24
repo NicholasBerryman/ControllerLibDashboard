@@ -12,4 +12,5 @@ package arduinocontroller.Processing;
 public abstract class ControllerListener {
     public abstract void axisChange(int axisIndex);
     public abstract void buttonChange(int buttonIndex);
+    public abstract void povChange(int POVIndex);
 }

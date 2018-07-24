@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 public class ControllerPanel extends javax.swing.JPanel {
     private final ArrayList<JLabel> axes = new ArrayList<>();
     private final ArrayList<JLabel> buttons = new ArrayList<>();
+    private final ArrayList<JLabel> POVs = new ArrayList<>();
     /**
      * Creates new form ControllerPanel
      * @param controller
@@ -35,11 +36,17 @@ public class ControllerPanel extends javax.swing.JPanel {
             nextAxis.setOpaque(true);
             axes.add(nextAxis);
         }
-         for (int i = 0; i < controller.getButtonCount(); i++){
+        for (int i = 0; i < controller.getButtonCount(); i++){
             JLabel nextButton = new JLabel(" "+Integer.toString(i)+" ");
             nextButton.setBackground(Color.red);
             nextButton.setOpaque(true);
             buttons.add(nextButton);
+        }
+        for (int i = 0; i < controller.getPOVCount(); i++){
+            JLabel nextPOV = new JLabel(" "+Integer.toString(i)+" ");
+            nextPOV.setBackground(Color.yellow);
+            nextPOV.setOpaque(true);
+            POVs.add(nextPOV);
         }
         
         for (JLabel axis : axes){
@@ -47,6 +54,9 @@ public class ControllerPanel extends javax.swing.JPanel {
         }
         for (JLabel button : buttons){
             this.add(button);
+        }
+        for (JLabel pov : POVs){
+            this.add(pov);
         }
     }
 
@@ -65,6 +75,10 @@ public class ControllerPanel extends javax.swing.JPanel {
         else {
             axes.get(axisID).setBackground(Color.blue);
         }
+    }
+    
+    public void setPOV(int POV_ID, double value){
+        POVs.get(POV_ID).setBackground(new Color((float)(1-value),1.0f, 0.0f));
     }
     
     /**

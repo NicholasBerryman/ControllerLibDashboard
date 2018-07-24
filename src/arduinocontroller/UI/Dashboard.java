@@ -57,8 +57,8 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         });
-        controllerFindThread.start();
         this.updateControllerList();
+        controllerFindThread.start();
         this.setTitle("Arduino Controller Dashboard");
     }
 
@@ -87,6 +87,11 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void buttonChange(int buttonIndex) {
                 newPanel.setButton(buttonIndex, toAdd.getButtonValue(buttonIndex));
+            }
+
+            @Override
+            public void povChange(int POVIndex) {
+                newPanel.setPOV(POVIndex, toAdd.getPOVValue(POVIndex));
             }
         });
         toAdd.startMonitoring();

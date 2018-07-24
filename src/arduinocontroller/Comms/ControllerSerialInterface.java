@@ -19,6 +19,7 @@ public class ControllerSerialInterface {
     private static final String controllerCode = "C";
     private static final String axisCode = "A";
     private static final String buttonCode = "B";
+    private static final String POVCode = "P";
     private static final String valueCode = "V";
     private static final String messageCode = "M";
     
@@ -47,6 +48,14 @@ public class ControllerSerialInterface {
                 String value = Integer.toString(controller.getButtonValue(buttonIndex) ? 1 : 0) + ControllerSerialInterface.valueCode;
                 String ButtonCode = Integer.toString(buttonIndex)+ControllerSerialInterface.buttonCode;
                 serialInterface.send(controllerCode + value + ButtonCode);
+            }
+
+            @Override
+            public void povChange(int POVIndex) {
+                String controllerCode = Integer.toString(controller.getID()) + ControllerSerialInterface.controllerCode;
+                String value = Float.toString(controller.getPOVValue(POVIndex)) + ControllerSerialInterface.valueCode;
+                String POVCode = Integer.toString(POVIndex)+ControllerSerialInterface.POVCode;
+                serialInterface.send(controllerCode + value + POVCode);
             }
         });
     }
