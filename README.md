@@ -16,6 +16,7 @@ Once a COM port has been selected and confirmed, the main dashboard window will 
   * Button: Red = not pressed, green = pressed  
   * Axis: blue = 0, red = -1, green = 1  
     * \*Note* Intermediate colours are used for non-integral values  
+    
 Below the controller tab is the messages box, which displays messages and logs sent from the arduino.  
 Under the messages box is another text box with a send button next to it.  
 
