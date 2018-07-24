@@ -1,5 +1,5 @@
 # ControllerLibDashboard
-Java program for facilitating communication between USB controller and arduino. Designed to work with ControllerLib Arduino library at https://github.com/NicholasBerryman/ControllerLib
+Java program for facilitating communication between USB controller and arduino. Designed to work with USBControllerLib Arduino library at https://github.com/NicholasBerryman/USBControllerLib
 
 ## Installation
 ### Windows
