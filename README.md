@@ -13,9 +13,9 @@ This file should be able to run on any machine with a recent java installation
 Plug in any USB controllers and Arduino boards before starting.  
 Upon opening, a windows will appear prompting you to select a COM port. The user should select the COM port of the Arduino board that they wish to send USB controller data to. If no COM port is selected then the program will continue, though it will not send any information to any USB port.  
 Once a COM port has been selected and confirmed, the main dashboard window will appear. At the bottom of this window the user is given a list of available controllers. Selecting any of these controllers and pressing the 'Add Controller' button will tell the program to start tracking that controller, and adds a tab to the top of the program containing representations of the controller's components (buttons and axes). Any number of controllers may be added. Controller components are assigned an identifying number and are colour coded based on type and value as follows:  
-  *Button: Red = not pressed, green = pressed  
-  *Axis: blue = 0, red = -1, green = 1  
-    *\*Note* Intermediate colours are used for non-integral values  
+  * Button: Red = not pressed, green = pressed  
+  * Axis: blue = 0, red = -1, green = 1  
+    * \*Note* Intermediate colours are used for non-integral values  
 Below the controller tab is the messages box, which displays messages and logs sent from the arduino.  
 Under the messages box is another text box with a send button next to it.  
 
