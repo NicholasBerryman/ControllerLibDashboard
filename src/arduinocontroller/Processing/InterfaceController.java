@@ -20,20 +20,31 @@ public class InterfaceController {
     private final ArrayList<Component> buttons = new ArrayList<>();
     private final ArrayList<Component> axes = new ArrayList<>();
     private final ArrayList<ControllerListener> controllerListeners = new ArrayList<>();
+    private final double DEADZONE = 0;
+    private static int lastIdent = -1;
+    private int ID = -1;
+    private boolean monitoring = false;
     
-    public InterfaceController(Controller encapsulate){
+    
+    private InterfaceController(Controller encapsulate){
         this.controller = encapsulate;
         
         for (Component comp : controller.getComponents()){
-            if (comp.isAnalog())
+            if (comp.isAnalog()){
                 axes.add(comp);
+            }
             else
                 buttons.add(comp);
         }
     }
     
     public void startMonitoring(){
-         new Thread(new ControllerWatchThread(this)).start();
+        if (!monitoring){
+            lastIdent++;
+            ID = lastIdent;
+            new Thread(new ControllerWatchThread(this)).start();
+        }
+         
     }
     
     public void poll(){
@@ -71,7 +82,10 @@ public class InterfaceController {
     }
     
     public float getAxisValue(int index){
-        return axes.get(index).getPollData();
+        if (axes.get(index).getPollData() < DEADZONE && axes.get(index).getPollData() > -DEADZONE)
+            return 0;
+        else
+            return axes.get(index).getPollData();
     }
     
     public int getAxisCount(){
@@ -82,7 +96,9 @@ public class InterfaceController {
         this.controllerListeners.add(controllerListener);
     }
     
-    
+    public int getID(){
+        return ID;
+    }
     
     
     public static ArrayList<InterfaceController> GetAllControllers(){
@@ -91,7 +107,11 @@ public class InterfaceController {
             for (InterfaceController c : allControllers){
                 if (c.controller == contr) has = true;
             }
-            if (!has) allControllers.add(new InterfaceController(contr));
+            if (!has){
+                InterfaceController newController = new InterfaceController(contr);
+                if (newController.getAxisCount() > 0 || newController.getButtonCount() > 1)
+                    allControllers.add(newController);
+            }
         }
         return allControllers;
     }

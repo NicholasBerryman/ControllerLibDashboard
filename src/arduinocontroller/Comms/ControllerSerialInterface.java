@@ -35,15 +35,15 @@ public class ControllerSerialInterface {
         controller.addControllerListener(new ControllerListener(){
             @Override
             public void axisChange(int axisIndex) {
-                String controllerCode = Integer.toString(controllers.size()-1) + ControllerSerialInterface.controllerCode;
+                String controllerCode = Integer.toString(controller.getID()) + ControllerSerialInterface.controllerCode;
                 String value = Float.toString(controller.getAxisValue(axisIndex)) + ControllerSerialInterface.valueCode;
                 String axisCode = Integer.toString(axisIndex)+ControllerSerialInterface.axisCode;
                 serialInterface.send(controllerCode + value + axisCode);
             }
-
+            
             @Override
             public void buttonChange(int buttonIndex) {
-                String controllerCode = Integer.toString(controllers.size()-1) + ControllerSerialInterface.controllerCode;
+                String controllerCode = Integer.toString(controller.getID()) + ControllerSerialInterface.controllerCode;
                 String value = Integer.toString(controller.getButtonValue(buttonIndex) ? 1 : 0) + ControllerSerialInterface.valueCode;
                 String ButtonCode = Integer.toString(buttonIndex)+ControllerSerialInterface.buttonCode;
                 serialInterface.send(controllerCode + value + ButtonCode);

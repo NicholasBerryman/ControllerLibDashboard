@@ -38,13 +38,17 @@ public class COMSelector extends javax.swing.JFrame {
             @Override
             public void run() {
                 while (isActive){
-                    cmbPorts.removeAllItems();
-                    for (String portName : portFinder.getPortList())
-                        cmbPorts.addItem(portName);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(COMSelector.class.getName()).log(Level.SEVERE, null, ex);
+                    if (!cmbPorts.hasFocus()){
+                        int selected = cmbPorts.getSelectedIndex();
+                        cmbPorts.removeAllItems();
+                        for (String portName : portFinder.getPortList())
+                            cmbPorts.addItem(portName);
+                        if (selected < cmbPorts.getItemCount()) cmbPorts.setSelectedIndex(selected);
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(COMSelector.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -117,13 +121,12 @@ public class COMSelector extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbPortsActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if (cmbPorts.getSelectedIndex() > -1){
+        if (cmbPorts.getSelectedIndex() > -1)
             new Dashboard(new ControllerSerialInterface(cmbPorts.getSelectedIndex())).setVisible(true);
-            isActive = false;
-            this.setVisible(false);
-        }
         else
-            javax.swing.JOptionPane.showMessageDialog(this, "Error. No available ports found!\nPlease check your Arduino is plugged in.");
+            new Dashboard().setVisible(true);
+        isActive = false;
+        this.setVisible(false);
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

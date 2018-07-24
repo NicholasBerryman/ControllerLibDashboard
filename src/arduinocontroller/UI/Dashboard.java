@@ -29,9 +29,7 @@ public class Dashboard extends javax.swing.JFrame {
      * @param arduinoPort
      */
     public Dashboard(ControllerSerialInterface arduinoPort) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        ((DefaultCaret)txtRecieved.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        this();
         this.arduinoPort = arduinoPort;
         arduinoPort.addSerialListener(new SerialListener(){
             @Override
@@ -39,6 +37,13 @@ public class Dashboard extends javax.swing.JFrame {
                 txtRecieved.append(message);
             }
         });
+        
+    }
+    
+    public Dashboard(){
+        initComponents();
+        this.setLocationRelativeTo(null);
+        ((DefaultCaret)txtRecieved.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         controllerFindThread = new Thread(new Runnable(){
             @Override
             public void run() {
@@ -58,11 +63,15 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     private void updateControllerList(){
-        cmbControllerList.removeAllItems();
-        for (InterfaceController controller : InterfaceController.GetAllControllers()){
-            if (!controllers.contains(controller)){
-                cmbControllerList.addItem(controller.getName());
+        int selected = cmbControllerList.getSelectedIndex();
+        if (!cmbControllerList.hasFocus()){
+            cmbControllerList.removeAllItems();
+            for (InterfaceController controller : InterfaceController.GetAllControllers()){
+                if (!controllers.contains(controller)){
+                    cmbControllerList.addItem(controller.getName());
+                }
             }
+            if (selected < cmbControllerList.getItemCount()) cmbControllerList.setSelectedIndex(selected);
         }
     }
     
@@ -84,7 +93,7 @@ public class Dashboard extends javax.swing.JFrame {
         if (controllerSerialInterface != null) controllerSerialInterface.addController(toAdd);
         tbpControllers.addTab(toAdd.getName(), newPanel);
         
-        arduinoPort.addController(toAdd);
+        if (arduinoPort != null)arduinoPort.addController(toAdd);
     }
     
     
@@ -168,7 +177,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btnAddControllerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddControllerActionPerformed
         for (InterfaceController controller : InterfaceController.GetAllControllers()){
-            if (controller.getName().equals(cmbControllerList.getSelectedItem())){
+            if (controller.getName().equals(cmbControllerList.getSelectedItem()) && !controllers.contains(controller)){
                 this.addController(controller);
                 break;
             }

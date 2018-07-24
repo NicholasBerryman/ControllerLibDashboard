@@ -56,9 +56,15 @@ public class ControllerPanel extends javax.swing.JPanel {
     }
     
     public void setAxis(int axisID, double value){
-        if (value > 0) axes.get(axisID).setBackground(Color.green);
-        else if (value < 0) axes.get(axisID).setBackground(Color.red);
-        else axes.get(axisID).setBackground(Color.blue);
+        if (value > 0) {
+            axes.get(axisID).setBackground(new Color(0.0f, (float)value, (float)(1.0-value)));
+        }
+        else if (value < 0) {
+            axes.get(axisID).setBackground(new Color((float)-value, 0.0f, (float)(1.0+value)));
+        }
+        else {
+            axes.get(axisID).setBackground(Color.blue);
+        }
     }
     
     /**
