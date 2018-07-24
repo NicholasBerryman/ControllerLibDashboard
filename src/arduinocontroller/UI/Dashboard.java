@@ -134,6 +134,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        txtRecieved.setEditable(false);
         txtRecieved.setColumns(20);
         txtRecieved.setRows(5);
         jScrollPane1.setViewportView(txtRecieved);
@@ -186,7 +187,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddControllerActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        arduinoPort.sendMessage(txtMessage.getText());
+        if (arduinoPort != null)arduinoPort.sendMessage(txtMessage.getText());
         txtMessage.setText("");
     }//GEN-LAST:event_btnSendActionPerformed
 
