@@ -6,7 +6,6 @@
 package arduinocontroller.Processing;
 
 import arduinocontroller.UI.COMSelector;
-import arduinocontroller.UI.Dashboard;
 
 
 /**
@@ -14,7 +13,7 @@ import arduinocontroller.UI.Dashboard;
  * @author Nicholas Berryman
  */
 public class ArduinoController {
-    public static final int POLL_RATE_MS = 10;
+    public static final int POLL_RATE_MS = 50;
     
     /**
      * @param args the command line arguments

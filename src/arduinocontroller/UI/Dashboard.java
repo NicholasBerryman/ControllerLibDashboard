@@ -30,6 +30,7 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard(ControllerSerialInterface arduinoPort) {
         this();
+        txtRecieved.setText("");
         this.arduinoPort = arduinoPort;
         arduinoPort.addSerialListener(new SerialListener(){
             @Override
@@ -42,6 +43,7 @@ public class Dashboard extends javax.swing.JFrame {
     
     public Dashboard(){
         initComponents();
+        txtRecieved.setText("No COM port seleced!");
         this.setLocationRelativeTo(null);
         ((DefaultCaret)txtRecieved.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         controllerFindThread = new Thread(new Runnable(){
@@ -94,11 +96,13 @@ public class Dashboard extends javax.swing.JFrame {
                 newPanel.setPOV(POVIndex, toAdd.getPOVValue(POVIndex));
             }
         });
-        toAdd.startMonitoring();
         if (controllerSerialInterface != null) controllerSerialInterface.addController(toAdd);
         tbpControllers.addTab(toAdd.getName(), newPanel);
+        toAdd.startMonitoring();
         
-        if (arduinoPort != null)arduinoPort.addController(toAdd);
+        if (arduinoPort != null){
+            arduinoPort.addController(toAdd);
+        }
     }
     
     
@@ -131,6 +135,12 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         cmbControllerList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMessageActionPerformed(evt);
+            }
+        });
 
         btnSend.setText("Send");
         btnSend.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +205,11 @@ public class Dashboard extends javax.swing.JFrame {
         if (arduinoPort != null)arduinoPort.sendMessage(txtMessage.getText());
         txtMessage.setText("");
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
+        if (arduinoPort != null)arduinoPort.sendMessage(txtMessage.getText());
+        txtMessage.setText("");
+    }//GEN-LAST:event_txtMessageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

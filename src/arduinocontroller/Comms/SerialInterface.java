@@ -14,14 +14,14 @@ import net.Network_iface;
  * @author Nicholas Berryman
  */
 public class SerialInterface {
-    public static int BAUD_RATE = 115200;
+    public static int BAUD_RATE = 57600;
     private final basic_iface serialReader = new basic_iface();
     private Network port;
     
     public SerialInterface(int port){
         this.port = new Network(0, serialReader, '\n');
         System.out.println(port);
-        this.port.connect(this.port.getPortList().get(port), 115200);
+        this.port.connect(this.port.getPortList().get(port), BAUD_RATE);
     }
     
     public synchronized void send(String s){

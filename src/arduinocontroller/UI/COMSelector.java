@@ -17,7 +17,6 @@ import net.Network_iface;
  */
 public class COMSelector extends javax.swing.JFrame {
     public boolean isActive = true;
-    private Thread portFindThread;
     private Network portFinder = new Network(new Network_iface(){
         @Override
         public void writeLog(int id, String text) {}
@@ -34,26 +33,29 @@ public class COMSelector extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Arduino port");
         cmbPorts.removeAllItems();
-        portFindThread = new Thread(new Runnable(){
+        
+        new Thread(new Runnable(){
             @Override
             public void run() {
                 while (isActive){
-                    if (!cmbPorts.hasFocus()){
-                        int selected = cmbPorts.getSelectedIndex();
+                    int selected = cmbPorts.getSelectedIndex();
+                    
+                    if (!cmbPorts.hasFocus() && !btnConfirm.hasFocus()){
                         cmbPorts.removeAllItems();
                         for (String portName : portFinder.getPortList())
                             cmbPorts.addItem(portName);
-                        if (selected < cmbPorts.getItemCount()) cmbPorts.setSelectedIndex(selected);
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(COMSelector.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        cmbPorts.setSelectedIndex(selected);
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(COMSelector.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
-        });
-        portFindThread.start();
+        }).start();
+        
+        
     }
 
     /**
@@ -68,6 +70,10 @@ public class COMSelector extends javax.swing.JFrame {
         cmbPorts = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +92,23 @@ public class COMSelector extends javax.swing.JFrame {
                 btnConfirmActionPerformed(evt);
             }
         });
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Refresh");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,9 +152,17 @@ public class COMSelector extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox<String> cmbPorts;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

@@ -48,6 +48,8 @@ public class InterfaceController {
         if (!monitoring){
             lastIdent++;
             ID = lastIdent;
+            monitoring = true;
+            controller.poll();
             new Thread(new ControllerWatchThread(this)).start();
         }
          
@@ -63,11 +65,14 @@ public class InterfaceController {
         ArrayList<Float> oldPOVs = new ArrayList<>();
         for (int i = 0; i < this.getPOVCount(); i++)
             oldPOVs.add(this.getPOVValue(i));
+        
         controller.poll();
+        
         for (int i = 0; i < this.getAxisCount(); i++){
             if (oldAxes.get(i) != this.getAxisValue(i)){
-                for (ControllerListener listener : controllerListeners)
+                for (ControllerListener listener : controllerListeners){
                     listener.axisChange(i);
+                }
             }
         }
         for (int i = 0; i < this.getButtonCount(); i++){
