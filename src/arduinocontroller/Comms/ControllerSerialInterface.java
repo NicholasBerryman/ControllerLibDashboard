@@ -55,8 +55,7 @@ public class ControllerSerialInterface {
             @Override
             public void povChange(int POVIndex) {
                 String controllerCode = Integer.toString(controller.getID()) + ControllerSerialInterface.controllerCode;
-                String value = Float.toString(controller.getAxisValue(POVIndex)).substring(
-                        0,Math.min(5,Float.toString(controller.getAxisValue(POVIndex)).length()))
+                String value = controller.getPOVValue(POVIndex)
                         + ControllerSerialInterface.valueCode;
                 String POVCode = Integer.toString(POVIndex)+ControllerSerialInterface.POVCode;
                 serialInterface.send(controllerCode + value + POVCode);

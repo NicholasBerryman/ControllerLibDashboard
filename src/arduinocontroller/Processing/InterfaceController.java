@@ -6,9 +6,7 @@
 package arduinocontroller.Processing;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import net.java.games.input.Component;
-import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
@@ -23,7 +21,7 @@ public class InterfaceController {
     private final ArrayList<Component> axes = new ArrayList<>();
     private final ArrayList<Component> POVs = new ArrayList<>();
     private final ArrayList<ControllerListener> controllerListeners = new ArrayList<>();
-    private final double DEADZONE = 0;
+    private final double DEADZONE = 0.01;
     private static int lastIdent = -1;
     private int ID = -1;
     private boolean monitoring = false;
